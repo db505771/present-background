@@ -2,39 +2,78 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Red Present Background</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Red Background</title>
 <style>
-* {
-    box-sizing: border-box;
+/* colors: change these to make it darker, brighter or warmer */
+:root {
+  --bg1: #2a050f;       /* top */
+  --bg2: #17030a;       /* middle */
+  --bg3: #0b0105;       /* bottom */
+  --glow: 215,45,70;    /* red light (r,g,b) */
 }
 html, body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(170deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
-body {
-    background:
-        radial-gradient(
-            ellipse at 50% 0%,
-            rgba(255, 95, 105, .35),
-            transparent 65%
-        ),
-        radial-gradient(
-            ellipse at 100% 100%,
-            rgba(55, 0, 8, .4),
-            transparent 60%
-        ),
-        linear-gradient(
-            145deg,
-            #A90019,
-            #D3132D 48%,
-            #850013
-        );
+
+/* soft pools of red light, drifting very slowly */
+.glow {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(var(--glow), .5), rgba(var(--glow), 0));
+  animation: drift 55s ease-in-out infinite alternate;
 }
+.g1 { width: 90vmax; height: 90vmax; left: -34vmax; top: -30vmax; }
+.g2 { width: 80vmax; height: 80vmax; right: -38vmax; top: 18vh; opacity: .75; animation-duration: 70s; animation-delay: -20s; }
+.g3 { width: 70vmax; height: 70vmax; left: -22vmax; bottom: -34vmax; opacity: .6; animation-duration: 62s; animation-delay: -35s; }
+.g4 { width: 34vmax; height: 34vmax; right: 4vw; top: 6vh; opacity: .55; animation-duration: 48s; animation-delay: -10s;
+      background: radial-gradient(closest-side, rgba(255,90,110,.45), rgba(255,90,110,0)); }
+@keyframes drift { to { transform: translate(5vmax, 4vmax) scale(1.1); } }
+
+/* slanted glass glare panels, like the ones inside the button */
+.glare {
+  position: fixed;
+  top: -30vh;
+  height: 170vh;
+  pointer-events: none;
+  transform: rotate(18deg);
+  background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,0) 85%);
+  animation: slide 80s ease-in-out infinite alternate;
+}
+.a1 { left: 6vw;  width: 20vw; }
+.a2 { left: 44vw; width: 11vw; opacity: .8; animation-duration: 100s; animation-delay: -30s; }
+.a3 { left: 76vw; width: 16vw; opacity: .9; animation-duration: 90s; animation-delay: -55s; }
+@keyframes slide { to { transform: translateX(4vw) rotate(18deg); } }
+
+/* a soft sheen across the top, and a dark vignette around the edges */
+.top {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 40% at 50% -6%, rgba(255,150,165,.2), rgba(255,150,165,0) 70%),
+    radial-gradient(120% 90% at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,.5) 100%);
+}
+
+/* add ?still to the URL, or turn on Reduce Motion, to stop the drifting */
+.still .glow, .still .glare { animation: none; }
+@media (prefers-reduced-motion: reduce) { .glow, .glare { animation: none; } }
 </style>
 </head>
 <body>
+<div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div><div class="glow g4"></div>
+<div class="glare a1"></div><div class="glare a2"></div><div class="glare a3"></div>
+<div class="top"></div>
+<script>
+if (/[?&#]still/.test(location.search + location.hash)) document.documentElement.classList.add('still');
+</script>
 </body>
 </html>
