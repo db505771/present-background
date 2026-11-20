@@ -38,19 +38,21 @@ html, body {
       background: radial-gradient(closest-side, rgba(255,90,110,.45), rgba(255,90,110,0)); }
 @keyframes drift { to { transform: translate(5vmax, 4vmax) scale(1.1); } }
 
-/* slanted glass glare panels, like the ones inside the button */
+/* slanted glass glare panels, faded at the sides so they have no hard edges */
 .glare {
   position: fixed;
   top: -30vh;
   height: 170vh;
   pointer-events: none;
   transform: rotate(18deg);
-  background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,0) 85%);
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.07) 50%, rgba(255,255,255,0));
+  -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent 95%);
+  mask-image: linear-gradient(180deg, #000 30%, transparent 95%);
   animation: slide 80s ease-in-out infinite alternate;
 }
-.a1 { left: 6vw;  width: 20vw; }
-.a2 { left: 44vw; width: 11vw; opacity: .8; animation-duration: 100s; animation-delay: -30s; }
-.a3 { left: 76vw; width: 16vw; opacity: .9; animation-duration: 90s; animation-delay: -55s; }
+.a1 { left: 2vw;  width: 30vw; }
+.a2 { left: 42vw; width: 17vw; opacity: .8; animation-duration: 100s; animation-delay: -30s; }
+.a3 { left: 72vw; width: 24vw; opacity: .9; animation-duration: 90s; animation-delay: -55s; }
 @keyframes slide { to { transform: translateX(4vw) rotate(18deg); } }
 
 /* a soft sheen across the top, and a dark vignette around the edges */
